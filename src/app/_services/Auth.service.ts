@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -10,6 +11,8 @@ export class AuthService {
 
   baseUrl = 'http://localhost:5000/api/auth/';
   userToken: any;
+  decodeToken: any;
+  jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: Http) { }
 
@@ -20,9 +23,15 @@ export class AuthService {
       const user = response.json();
       if (user) {
         localStorage.setItem('token', user.tokenString);
+        this.decodeToken = this.jwtHelper.decodeToken(user.tokenString);
+        console.log(this.decodeToken);
         this.userToken = user.tokenString;
       }
     }).catch(this.handleError);
+  }
+
+  loggedIn() {
+    return tokenNotExpired('token');
   }
 
   register(model: any) {

@@ -28,6 +28,10 @@ export class UserService {
         .catch(this.handleError);
   }
 
+  updateUser(id: number, user: User) {
+    return this._authHttp.put(this.baseUrl + 'users/' + id, user).catch(this.handleError);
+  }
+  
   /*
   getUsers(): Observable<User[]> {
     return this._http.get(this.baseUrl + 'users', this.jwt())

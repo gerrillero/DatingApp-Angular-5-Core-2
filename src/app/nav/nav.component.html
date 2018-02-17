@@ -39,7 +39,7 @@
             Welcome {{ authService.decodeToken?.unique_name | titlecase }}
             <span class="caret"></span></a>
           <ul class="dropdown-menu" *dropdownMenu>
-            <li><a><i class="fa fa-user"></i> Edit Profiel</a></li>
+            <li><a [routerLink]="['/member/edit']"><i class="fa fa-user"></i> Edit Profiel</a></li>
             <li role="separator" class="divider"></li>
             <li><a (click)="logout()"><span class="fa fa-sign-out"></span> Logout</a></li>
           </ul>

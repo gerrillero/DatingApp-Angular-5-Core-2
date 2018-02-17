@@ -3,9 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 // Services
 import { AuthService } from './_services/Auth.service';
@@ -14,6 +15,10 @@ import { UserService } from './_services/user.service';
 
 // Guards
 import { AuthGuard } from './_guards/auth.guard';
+
+// Resolvers
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 // Components
 import { AppComponent } from './app.component';
@@ -45,14 +50,18 @@ import { appRoutes } from './routes';
     HttpModule,
     FormsModule,
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    AuthModule
+    AuthModule,
+    NgxGalleryModule
   ],
   providers: [
     AuthService,
     AlertifyService,
     UserService,
-    AuthGuard
+    AuthGuard,
+    MemberDetailResolver,
+    MemberListResolver
   ],
   bootstrap: [AppComponent]
 })

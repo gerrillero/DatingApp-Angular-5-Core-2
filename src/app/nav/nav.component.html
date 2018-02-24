@@ -34,9 +34,12 @@
       </form>
 
       <ul *ngIf="logedIn()" class="nav navbar-nav navbar-right">
+        <li>
+            <img src="{{photoUrl}}" alt="">
+        </li>
         <li class="dropdown" dropdown>
           <a (click)="false" class="dropdown-toggle" dropdownToggle>
-            Welcome {{ authService.decodeToken?.unique_name | titlecase }}
+            Welcome {{authService.decodeToken?.unique_name | titlecase}}
             <span class="caret"></span></a>
           <ul class="dropdown-menu" *dropdownMenu>
             <li><a [routerLink]="['/member/edit']"><i class="fa fa-user"></i> Edit Profiel</a></li>

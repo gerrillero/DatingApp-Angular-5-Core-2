@@ -7,6 +7,7 @@ import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 
 // Services
 import { AuthService } from './_services/Auth.service';
@@ -33,6 +34,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 
 import { appRoutes } from './routes';
 
@@ -47,7 +49,8 @@ import { appRoutes } from './routes';
     MessagesComponent,
     MemberCardComponent,
     MemberDetailComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
 ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { appRoutes } from './routes';
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AuthModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule
   ],
   providers: [
     AuthService,

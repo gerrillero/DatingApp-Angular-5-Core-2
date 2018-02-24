@@ -31,7 +31,15 @@ export class UserService {
   updateUser(id: number, user: User) {
     return this._authHttp.put(this.baseUrl + 'users/' + id, user).catch(this.handleError);
   }
-  
+
+  setMainPhoto(userId: number, id: number) {
+    return this._authHttp.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {}).catch(this.handleError);
+  }
+
+  deletePhoto(userId: number, id: number) {
+    return this._authHttp.delete(this.baseUrl + 'users/' + userId + '/photos/' + id).catch(this.handleError);
+  }
+
   /*
   getUsers(): Observable<User[]> {
     return this._http.get(this.baseUrl + 'users', this.jwt())

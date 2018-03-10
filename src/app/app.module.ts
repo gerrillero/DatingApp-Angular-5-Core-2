@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -36,6 +36,9 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 
+// Pipes
+import {TimeAgoPipe} from 'time-ago-pipe';
+
 import { appRoutes } from './routes';
 
 @NgModule({
@@ -50,7 +53,8 @@ import { appRoutes } from './routes';
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    TimeAgoPipe
 ],
   imports: [
     BrowserModule,
@@ -63,7 +67,9 @@ import { appRoutes } from './routes';
     AuthModule,
     NgxGalleryModule,
     FileUploadModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot()
   ],
   providers: [
     AuthService,

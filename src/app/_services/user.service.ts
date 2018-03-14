@@ -29,12 +29,20 @@ export class UserService {
   //       .catch(this.handleError);
   // }
 
-  getUsers(page?: number, itemsPerPage?: number, userParams?: any) {
+  getUsers(page?: number, itemsPerPage?: number, userParams?: any, likeParams?: string) {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let queryString = '?';
 
     if (page != null && itemsPerPage != null) {
       queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
+    }
+
+    if (likeParams === 'Likers') {
+      queryString += 'Likers=true&';
+    }
+
+    if (likeParams === 'Likees') {
+      queryString += 'Likees=true&';
     }
 
     if (userParams != null) {
@@ -66,6 +74,10 @@ export class UserService {
     return this._authHttp.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {}).catch(this.handleError);
   }
 
+  sendLike(id: number, recipientId: number) {
+    return this._authHttp.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {}).catch(this.handleError);
+  }
+
   deletePhoto(userId: number, id: number) {
     return this._authHttp.delete(this.baseUrl + 'users/' + userId + '/photos/' + id).catch(this.handleError);
   }
@@ -88,6 +100,9 @@ export class UserService {
   */
 
   private handleError(error) {
+    if (error.status === 400) {
+      return Observable.throw(error._body);
+    }
     const applicationError = error.headers.get('Application-Error');
     if (applicationError) {
       return Observable.throw(applicationError);

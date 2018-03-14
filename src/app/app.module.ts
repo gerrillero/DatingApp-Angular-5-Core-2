@@ -40,6 +40,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import {TimeAgoPipe} from 'time-ago-pipe';
 
 import { appRoutes } from './routes';
+import { ListsResolver } from './_resolvers/lists.resolver.';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { appRoutes } from './routes';
     PreventUnsavedChanges,
     MemberDetailResolver,
     MemberListResolver,
-    MemberEditResolver
+    MemberEditResolver,
+    ListsResolver
   ],
   bootstrap: [AppComponent]
 })

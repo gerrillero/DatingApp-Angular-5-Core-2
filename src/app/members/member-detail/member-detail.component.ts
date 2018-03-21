@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../../_models/User';
 import { NgxGalleryImage, NgxGalleryOptions, NgxGalleryAnimation } from 'ngx-gallery';
 import { TabsetComponent } from 'ngx-bootstrap';
+import { AuthService } from '../../_services/Auth.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -17,17 +18,18 @@ export class MemberDetailComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private _userService: UserService, private _alertify: AlertifyService, private _route: ActivatedRoute) { }
+  constructor(private userService: UserService, private alertify: AlertifyService,
+    private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
     // AS - Now the data come fro the resolver
     // this.loadUser();
 
-    this._route.data.subscribe(data => {
+    this.route.data.subscribe(data => {
       this.user = data['user'];
     });
 
-    this._route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       this.memberTabs.tabs[params['tab']].active = true;
     });
 
@@ -46,7 +48,7 @@ export class MemberDetailComponent implements OnInit {
 
   getImages() {
     const imgUrls = [];
-    this.user.photos.forEach(photo => {
+    this.user.photos.forEach(photo => { 
       imgUrls.push({
         small: photo.url,
         medium: photo.url,
@@ -59,6 +61,14 @@ export class MemberDetailComponent implements OnInit {
 
   selectTab(tabId: number) {
     this.memberTabs.tabs[tabId].active = true;
+  }
+
+  sendLike(id: number) {
+    this.userService.sendLike(this.authService.decodeToken.nameid, id).subscribe(data => {
+      this.alertify.success('You have liked ' + this.user.knownAS);
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
  /*  loadUser() {

@@ -3,6 +3,8 @@ import { Message } from '../../_models/Message';
 import { UserService } from '../../_services/user.service';
 import { AuthService } from '../../_services/Auth.service';
 import { AlertifyService } from '../../_services/alertify.service';
+import * as _ from 'underscore';
+import 'rxjs/add/operator/do';
 
 @Component({
   selector: 'app-member-messages',
@@ -14,14 +16,23 @@ export class MemberMessagesComponent implements OnInit {
   messages: Message[];
   newMessage: any = {};
 
-  constructor(private userServices: UserService, private authService: AuthService, private alertify: AlertifyService) { }
+  constructor(private userService: UserService, private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.loadMessages();
   }
 
   loadMessages() {
-    this.userServices.getMessageThread(this.authService.decodeToken.nameid, this.userId).subscribe(messages => {
+    const currentUserId = +this.authService.decodeToken.nameid;
+    this.userService.getMessageThread(this.authService.decodeToken.nameid, this.userId)
+    .do(messages => {
+      _.each(messages, (message: Message) => {
+        if (message.isRead === false && message.recipientId === currentUserId) {
+          this.userService.markMessageAsRead(currentUserId, message.id);
+        }
+      });
+    })
+    .subscribe(messages => {
       this.messages = messages;
     }, error => {
       this.alertify.error(error);
@@ -30,7 +41,7 @@ export class MemberMessagesComponent implements OnInit {
 
   sendMessage() {
     this.newMessage.recipientId = this.userId;
-    this.userServices.sendMessage(this.authService.decodeToken.nameid, this.newMessage).subscribe(message => {
+    this.userService.sendMessage(this.authService.decodeToken.nameid, this.newMessage).subscribe(message => {
       this.messages.unshift(message);
       this.newMessage.content = '';
     }, error => {

@@ -115,9 +115,12 @@ export class UserService {
   }
 
   deleteMessage(id: number, userId: number) {
-    return this._authHttp.delete(this.baseUrl + 'users/' + userId + '/messages/' + id).catch(this.handleError);
+    return this._authHttp.post(this.baseUrl + 'users/' + userId + '/messages/' + id, {}).catch(this.handleError);
   }
 
+  markMessageAsRead(userId: number, messageId: number) {
+    return this._authHttp.post(this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read', {}).subscribe();
+  }
 
   /*
   getUsers(): Observable<User[]> {

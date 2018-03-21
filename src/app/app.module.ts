@@ -22,6 +22,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { MessageResolver } from './_resolvers/message.resolver';
 
 // Components
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 // Pipes
 import {TimeAgoPipe} from 'time-ago-pipe';
@@ -55,6 +57,7 @@ import { ListsResolver } from './_resolvers/lists.resolver.';
     MemberDetailComponent,
     MemberEditComponent,
     PhotoEditorComponent,
+    MemberMessagesComponent,
     TimeAgoPipe
 ],
   imports: [
@@ -81,7 +84,8 @@ import { ListsResolver } from './_resolvers/lists.resolver.';
     MemberDetailResolver,
     MemberListResolver,
     MemberEditResolver,
-    ListsResolver
+    ListsResolver,
+    MessageResolver
   ],
   bootstrap: [AppComponent]
 })

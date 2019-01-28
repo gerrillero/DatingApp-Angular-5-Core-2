@@ -22,7 +22,7 @@ export class MemberDetailComponent implements OnInit {
     private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
-    // AS - Now the data come fro the resolver
+    // AS - Now the data comes from the resolver
     // this.loadUser();
 
     this.route.data.subscribe(data => {
@@ -48,7 +48,7 @@ export class MemberDetailComponent implements OnInit {
 
   getImages() {
     const imgUrls = [];
-    this.user.photos.forEach(photo => { 
+    this.user.photos.forEach(photo => {
       imgUrls.push({
         small: photo.url,
         medium: photo.url,
